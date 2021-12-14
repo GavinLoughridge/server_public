@@ -1,0 +1,35 @@
+---
+- name: Sync web nginx
+  hosts: web
+  become: yes
+  tasks:
+    - name: Synchronize sites-available
+      ansible.posix.synchronize:
+        src: sites-available/
+        dest: /etc/nginx/sites-available/
+        archive: no
+        links: yes
+        delete: yes
+        recursive: yes
+
+    - name: Synchronize sites-enabled
+      ansible.posix.synchronize:
+        src: sites-enabled/
+        dest: /etc/nginx/sites-enabled/
+        archive: no
+        links: yes
+        delete: yes
+        recursive: yes
+
+    - name: Copy nginx site.conf
+      template:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Restart service nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted

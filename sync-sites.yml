@@ -1,0 +1,47 @@
+---
+- name: Sync web sites
+  hosts: web
+  become: yes
+  tasks:
+
+    - name: Creates catherineandgavin.com directory
+      file:
+        path: /var/www/catherineandgavin.com
+        state: directory
+
+    - name: Synchronize catherineandgavin.com
+      ansible.posix.synchronize:
+        src: www/catherineandgavin.com/
+        dest: /var/www/catherineandgavin.com/html/
+        archive: no
+        links: yes
+        delete: yes
+        recursive: yes
+
+    - name: Creates gavinloughridge.com directory
+      file:
+        path: /var/www/gavinloughridge.com
+        state: directory
+
+    - name: Synchronize gavinloughridge.com
+      ansible.posix.synchronize:
+        src: www/gavinloughridge.com/
+        dest: /var/www/gavinloughridge.com/html/
+        archive: no
+        links: yes
+        delete: yes
+        recursive: yes
+
+    - name: Creates ludsec.com directory
+      file:
+        path: /var/www/ludsec.com
+        state: directory
+
+    - name: Synchronize ludsec.com
+      ansible.posix.synchronize:
+        src: www/ludsec.com/
+        dest: /var/www/ludsec.com/html/
+        archive: no
+        links: yes
+        delete: yes
+        recursive: yes

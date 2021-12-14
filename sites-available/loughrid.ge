@@ -2,7 +2,7 @@ server {
     listen 80;
     listen [::]:80;
     server_name loughrid.ge www.loughrid.ge;
-    return 302 https://gavin.id;
+    return 302 https://gavinloughridge.com;
 }
 
 server {
@@ -12,5 +12,5 @@ server {
     include snippets/ssl-params.conf;
 
     server_name loughrid.ge www.loughrid.ge;
-    return 302 https://gavin.id;
+    return 302 https://gavinloughridge.com;
 }

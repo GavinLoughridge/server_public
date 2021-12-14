@@ -2,7 +2,7 @@ server {
     listen 80;
     listen [::]:80;
     server_name g4.vin www.g4.vin;
-    return 302 https://gavin.id;
+    return 302 https://gavinloughridge.com;
 }
 
 server {
@@ -12,5 +12,5 @@ server {
     include snippets/ssl-params.conf;
 
     server_name g4.vin www.g4.vin;
-    return 302 https://gavin.id;
+    return 302 https://gavinloughridge.com;
 }

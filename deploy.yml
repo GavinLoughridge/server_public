@@ -1,0 +1,47 @@
+---
+- name: Sync web sites
+  hosts: web
+  become: yes
+  tasks:
+    - name: Update apt-get repo and cache
+      apt: 
+        update_cache: yes 
+        force_apt_get: yes
+
+    - name: Upgrade all apt packages
+      apt:
+        upgrade: dist
+        force_apt_get: yes
+
+    - name: Install a list of packages
+      apt:
+        pkg:
+        - nginx
+        - rsync
+
+    - name: Allow from any proto tcp to any port 22
+      community.general.ufw:
+        rule: allow
+        direction: in
+        proto: tcp
+        to_port: '22'
+
+    - name: Allow from any proto tcp to any port 443
+      community.general.ufw:
+        rule: allow
+        direction: in
+        proto: tcp
+        to_port: '443'
+
+    - name: Allow from any proto tcp to any port 80
+      community.general.ufw:
+        rule: allow
+        direction: in
+        proto: tcp
+        to_port: '80'
+
+- name: Sync sites
+  import_playbook: sync-sites.yml
+
+- name: Sync nginx
+  import_playbook: sync-nginx.yml
