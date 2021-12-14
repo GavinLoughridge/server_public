@@ -1,0 +1,22 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name gavin.id www.gavin.id;
+    return 302 https://gavin.id$request_uri;
+}
+
+server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include snippets/self-signed.conf;
+        include snippets/ssl-params.conf;
+
+        root /var/www/gavin.id/html;
+        index index.html;
+
+        server_name gavin.id www.gavin.id;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
